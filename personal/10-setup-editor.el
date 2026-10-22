@@ -128,3 +128,18 @@
         '(:mode-line-active default :mode-line-inactive "#434C5E"))
   :config
   (spacious-padding-mode +1))
+
+(defun tvaughan/uuid ()
+  "Return a lowercase UUID."
+  (downcase (uuid-string)))
+
+(defun tvaughan/insert-uuid ()
+  "Insert a lowercase UUID at point and add it to the kill ring."
+  (interactive)
+  (let ((uuid (tvaughan/uuid)))
+    (kill-new uuid)
+    (insert uuid)))
+
+(use-package uuid
+  :ensure t
+  :bind (("C-c C-u" . #'tvaughan/insert-uuid)))
